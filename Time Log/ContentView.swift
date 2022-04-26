@@ -15,30 +15,29 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                Button("1"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("2"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("3"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("Clear"){}.frame(maxWidth: .infinity, maxHeight: 50)
+                FlexButton("1"){}
+                FlexButton("2"){}
+                FlexButton("3"){}
+                FlexButton("Clear"){}
             }
             HStack {
-                Button("4"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("5"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("6"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("-"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                    
+                FlexButton("4"){}
+                FlexButton("5"){}
+                FlexButton("6"){}
+                FlexButton("-"){}
             }
             HStack {
-                Button("7"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("8"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("9"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("+"){}.frame(maxWidth: .infinity, maxHeight: 50)
+                FlexButton("7"){}
+                FlexButton("8"){}
+                FlexButton("9"){}
+                FlexButton("+"){}
             }
             HStack(alignment: .firstTextBaseline) {
-                Button("0"){}.frame(maxWidth: .infinity, maxHeight: 50)
-                Button("="){}.frame(maxWidth: .infinity, maxHeight: 50)
-            }
+                FlexButton("0"){}
+                FlexButton("="){}
         }
     }
+}
 }
 
 struct ContentView_Previews: PreviewProvider {
