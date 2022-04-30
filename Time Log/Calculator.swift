@@ -12,36 +12,70 @@ class Calculator: ObservableObject {
     
     @Published var calculations: [Calculation] = []
     @Published var time: String = "0:00"
+    @Published var buttonsArray: [[String]] = [
+        ["7", "8", "9", "AC"],
+        ["4", "5", "6", "-"],
+        ["1", "2", "3", "+",],
+        ["0", "="]
+    ]
     
-    var firstNumber: Double = 0.0
-    var secondNumber: Double = 0.0
-    var result: Double = 0.0
-    var isNewCalculation = true
+    var firstNumber: (Int, Int) = (0, 0)
+    var secondNumber: (Int, Int) = (0, 0)
+    var result: (Int, Int) = (0, 0)
+    var firstTime: String? = ""
+    var isFirstNumber = true
     var isShowingResult = false
     var operation: String?
     var numbers: [String] = []
+    var clearButton: Bool = true
     
-    func arrayToDouble(from array: [String]) -> Double {
-        var hour: Double = 0.0
-        var minute: Double = 0.0
+    func arrayToInt(from array: [String]) -> (Int, Int) {
+        var hour: Int = 0
+        var minute: Int = 0
         
         if array.count >= 3 {
-            hour = Double(array.prefix(upTo: array.count - 2).joined())!
-            minute = Double(array.suffix(2).joined())! / 60
+            hour = Int(array.prefix(upTo: array.count - 2).joined())!
+            if let safeMinute = Int(array.suffix(2).joined()) {
+                if safeMinute > 59 {
+                    minute = safeMinute - 60
+                    hour += 1
+                } else {
+                    minute = safeMinute
+                }
+            }
         }
         if array.count == 2 {
-            if let safeMinute = Double(array.joined()) {
-                minute = safeMinute / 60
+            if let safeMinute = Int(array.joined()) {
+                if safeMinute > 59 {
+                    minute = safeMinute - 60
+                    hour += 1
+                } else {
+                    minute = safeMinute
+                }
+                
             }
         }
         if array.count == 1 {
-            if let safeMinute = Double(array.joined()) {
-                minute = safeMinute / 60
+            if let safeMinute = Int(array.joined()) {
+                minute = safeMinute
             }
         }
         
-        let total = hour + minute
-        return total
+        return (hour, minute)
+    }
+    
+    func acToDel(){
+        let some = buttonsArray[0].firstIndex(of: "AC")
+        if some != nil {
+            buttonsArray[0][some!] = "C"
+        }
+    }
+    
+    func delToAc() {
+        let some = buttonsArray[0].firstIndex(of: "C")
+        if some != nil {
+            buttonsArray[0][some!] = "AC"
+        }
     }
     
     func checkIfSingleDigit(_ minute: String) -> String {
@@ -53,63 +87,145 @@ class Calculator: ObservableObject {
         }
     }
     
-    func doubleToTime(_ number: Double?) -> String? {
-        if let safeNumber = number {
-            let remainder = safeNumber.truncatingRemainder(dividingBy: 1)
-            let hour = Int(ceil(safeNumber - remainder))
-            let minute = remainder * 60.0
-            let total = "\(hour):\(minute)"
-            return total
-            
-            
+    func intToTime(_ number: (Int, Int)) -> String? {
+        let (hour, minute) = number
+        if minute < 10{
+            return "\(hour):0\(minute)"
         } else {
-            return nil
+            return "\(hour):\(minute)"
         }
+    }
+    
+    func resetNumbers() {
+        time = "0:00"
+        numbers = []
     }
     
     
     func checkInput(_ input: String) -> Void {
         switch input {
         case "+", "-" :
+            
+            print(isFirstNumber)
+            print(isShowingResult)
+            print("")
+            
             operation = input
-            if isNewCalculation && isShowingResult {
+            
+            if isFirstNumber {
+                firstNumber = arrayToInt(from: numbers)
+                resetNumbers()
+                isFirstNumber = false
+                firstTime = intToTime(firstNumber)
+            } else if isShowingResult {
                 firstNumber = result
-                isNewCalculation = false
-            } else if isNewCalculation && !isShowingResult {
-                firstNumber = arrayToDouble(from: numbers)
-                isNewCalculation = false
-                resetTime()
-            } else if !isNewCalculation && !isShowingResult {
-                secondNumber = arrayToDouble(from: numbers)
+                firstTime = intToTime(firstNumber)
+                resetNumbers()
+                isShowingResult = false
+            } else {
+                secondNumber = arrayToInt(from: numbers)
+                resetNumbers()
                 calculate()
                 firstNumber = result
-                isNewCalculation = true
+                isShowingResult = true
+            }
+               
+        case "=":
+            print(isFirstNumber)
+            print(isShowingResult)
+            print("")
+            
+            if isFirstNumber{
+                return
+            } else if isShowingResult {
+                resetNumbers()
+                calculate()
+                firstNumber = result
+                isShowingResult = true
+            } else {
+                secondNumber = arrayToInt(from: numbers)
+                resetNumbers()
+                calculate()
+                firstNumber = result
                 isShowingResult = true
             }
             
-        case "=":
-            if isShowingResult {
-                firstNumber = result
-            } else {
-                secondNumber = arrayToDouble(from: numbers)
-            }
+        case "AC":
+            print(isFirstNumber)
+            print(isShowingResult)
+            print("")
             
-            calculate()
-            isNewCalculation = true
-            isShowingResult = true
-                
-                
-        case "AC", "C":
             resetTime()
+            print("C button pressed, status: \((numbers, firstNumber, secondNumber, operation))")
+        case "C":
             
-        default:
-            if isNewCalculation && isShowingResult {
-                resetTime()
+            if numbers.count != 0 {
+                numbers = []
+                renderNumbers()
             }
-            numbers.append(input)
-            renderNumbers()
+            if numbers.isEmpty {
+                delToAc()
+                renderNumbers()
+            }
+            print("C button pressed, status: \((numbers, firstNumber, secondNumber, operation))")
+        case "Del":
+            if isShowingResult {
+                return
+            }
+            if numbers.count != 0 {
+                numbers.removeLast()
+                renderNumbers()
+            }
+            if numbers.isEmpty {
+                delToAc()
+            }
+        default:
+            print(isFirstNumber)
+            print(isShowingResult)
+            print("")
+            acToDel()
+            
             isShowingResult = false
+            if isFirstNumber {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                renderNumbers()
+            } else if isShowingResult {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                renderNumbers()
+            } else {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                renderNumbers()
+            }
+            
+            
+            
+            
+            
+//            if isFirstNumber {
+//                firstNumber = (0, 0)
+//                secondNumber = (0, 0)
+//            }
+//            if numbers.count < 8 {
+//                numbers.append(input)
+//            }
+//            renderNumbers()
+//            isShowingResult = false
         }
+    }
+    
+    func resetTime() {
+        time = "0:00"
+        firstNumber = (0, 0)
+        secondNumber = (0, 0)
+        isFirstNumber = true
+        isShowingResult = false
+        numbers = []
     }
     
     
@@ -129,23 +245,43 @@ class Calculator: ObservableObject {
     
     func calculate() -> Void {
         if operation == "+" {
-            result = firstNumber + secondNumber
-            let timeOne = doubleToTime(firstNumber)
-            let timeTwo = doubleToTime(secondNumber)
-            let result = doubleToTime(result)
-            if timeOne != nil && timeTwo != nil && result != nil {
-                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "+", result: result!)
+            let (firstHour, firstMinute) = firstNumber
+            let (secondHour, secondMinute) = secondNumber
+            let totals = firstMinute + secondMinute
+            if totals >= 60{
+                result = ((firstHour + secondHour + 1), ((firstMinute + secondMinute) % 60))
+            } else {
+                result = ((firstHour + secondHour), (firstMinute + secondMinute))
+            }
+            let timeOne = intToTime(firstNumber)
+            let timeTwo = intToTime(secondNumber)
+            let resultTime = intToTime(result)
+            if timeOne != nil && timeTwo != nil && resultTime != nil {
+                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "+", result: resultTime!)
                 calculations.append(calc)
                 time = calc.result
             }
             
         } else if operation == "-" {
-            result = firstNumber - secondNumber
-            let timeOne = doubleToTime(firstNumber)
-            let timeTwo = doubleToTime(secondNumber)
-            let result = doubleToTime(result)
-            if timeOne != nil && timeTwo != nil && result != nil {
-                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "-", result: result!)
+            let (firstHour, firstMinute) = firstNumber
+            let (secondHour, secondMinute) = secondNumber
+            let totalMinutes = firstMinute - secondMinute
+            let totalHours = firstHour - secondHour
+            print(totalHours)
+            print(totalMinutes)
+            if (totalMinutes < 0 && totalHours < 1) || totalHours < 0 {
+                time = "Error"
+                return
+            } else if totalMinutes < 0 && totalHours >= 1 {
+                result = ((firstHour - secondHour - 1), (60 + (firstMinute - secondMinute)))
+            } else {
+                result = ((firstHour - secondHour), (firstMinute - secondMinute))
+            }
+            let timeOne = intToTime(firstNumber)
+            let timeTwo = intToTime(secondNumber)
+            let resultTime = intToTime(result)
+            if timeOne != nil && timeTwo != nil && resultTime != nil {
+                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "-", result: resultTime!)
                 calculations.append(calc)
                 time = calc.result
             }
@@ -154,9 +290,5 @@ class Calculator: ObservableObject {
         }
     }
     
-    func resetTime() {
-        time = "0:00"
-        numbers = []
-        
-    }
+    
 }

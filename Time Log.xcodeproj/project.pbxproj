@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B34152FC281D84FB00502F06 /* PreviousCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34152FB281D84FB00502F06 /* PreviousCalculations.swift */; };
 		B34614FE2819528F005A1C9E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FD2819528F005A1C9E /* Extensions.swift */; };
 		B34615002819722A005A1C9E /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FF2819722A005A1C9E /* Calculation.swift */; };
 		B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B419A28188478003FD8B5 /* FlexButton.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B34152FB281D84FB00502F06 /* PreviousCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousCalculations.swift; sourceTree = "<group>"; };
 		B34614FD2819528F005A1C9E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B34614FF2819722A005A1C9E /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		B34B419A28188478003FD8B5 /* FlexButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexButton.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				B34614FF2819722A005A1C9E /* Calculation.swift */,
 				B3AA91A128184785004F004C /* Assets.xcassets */,
 				B3AA91A328184785004F004C /* Preview Content */,
+				B34152FB281D84FB00502F06 /* PreviousCalculations.swift */,
 			);
 			path = "Time Log";
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */,
 				B34614FE2819528F005A1C9E /* Extensions.swift in Sources */,
 				B34615002819722A005A1C9E /* Calculation.swift in Sources */,
+				B34152FC281D84FB00502F06 /* PreviousCalculations.swift in Sources */,
 				B3968CA4281C0C0700419BEE /* Calculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

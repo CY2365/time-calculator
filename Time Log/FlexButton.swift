@@ -47,7 +47,7 @@ struct SquareButton: ButtonStyle {
                 .cornerRadius(ButtonLets.cornerRadius)
                 .font(ButtonLets.buttonFont)
                 .overlay(RoundedRectangle(cornerRadius: ButtonLets.cornerRadius)
-                    .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
+                .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
                 .shadow(radius: ButtonLets.shadowRadius)
         }
         
@@ -81,7 +81,7 @@ struct RectButton: ButtonStyle {
                 .cornerRadius(ButtonLets.cornerRadius)
                 .font(ButtonLets.buttonFont)
                 .overlay(RoundedRectangle(cornerRadius:ButtonLets.cornerRadius)
-                    .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
+                .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
                 .shadow(radius: ButtonLets.shadowRadius)
         }
         

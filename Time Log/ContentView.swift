@@ -7,18 +7,13 @@
 
 import SwiftUI
 
-let buttonsArray: [[String]] = [
-    ["7", "8", "9", "AC"],
-    ["4", "5", "6", "-"],
-    ["1", "2", "3", "+",],
-    ["0", "="]
-]
+
 var currentIndex = 0
 
 struct ContentView: View {
     
     @EnvironmentObject var calculator: Calculator
-    
+    @State var showHistory = false
     
     var body: some View {
         VStack(spacing: 2.0) {
@@ -34,25 +29,40 @@ struct ContentView: View {
     
     
     private var calculationStack: some View {
-        Group {
+        VStack {
             HStack {
                 Spacer()
-                Text("\(calculator.calculations.last?.firstTime ?? "")")
-                Text("\(calculator.calculations.last?.operation ?? "")")
-                Text("\(calculator.calculations.last?.secondTime ?? "")")
+                if calculator.isFirstNumber {
+                    Text("")
+                } else if !calculator.isFirstNumber && !calculator.isShowingResult {
+                    Text("\(calculator.firstTime ?? "")")
+                    Text("\(calculator.operation ?? "")")
+                } else if calculator.isShowingResult {
+                    Text("\(calculator.calculations.last?.firstTime ?? "")")
+                    Text("\(calculator.calculations.last?.operation ?? "")")
+                    Text("\(calculator.calculations.last?.secondTime ?? "")")
+                }
+                
             }
-            Divider()
+            Divider().background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/)
             HStack {
                 Spacer()
                 Text("\(calculator.time)")
                     .font(.system(size: 36))
                     .multilineTextAlignment(.trailing)
+                Button {
+                    calculator.checkInput("Del")
+                } label: {
+                    Image(systemName: "delete.left.fill")
+                }
+                .padding(.trailing, 10.0)
+                .foregroundColor(.blue)
             }
-        }.foregroundColor(.white)
+        }.padding(.bottom).foregroundColor(.white)
     }
     
     private var buttons: some View {
-        ForEach(buttonsArray, id: \.self) { row in
+        ForEach(calculator.buttonsArray, id: \.self) { row in
             HStack(spacing: 2.0) {
                 ForEach(row, id: \.self) { column in
                     FlexButton(column) {
@@ -66,12 +76,15 @@ struct ContentView: View {
     private var topLeftButton: some View {
         HStack {
             Button {
-                
+                self.showHistory.toggle()
             } label: {
                 Label("List of previous calculations", systemImage: "list.bullet.rectangle.portrait.fill").labelStyle(.iconOnly)
             }
             .padding()
             .font(.system(size: 24))
+            .sheet(isPresented: $showHistory) {
+                PreviousCalculations(showHistory: $showHistory)
+            }
             Spacer()
         }
     }
