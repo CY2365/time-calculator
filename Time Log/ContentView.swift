@@ -7,41 +7,82 @@
 
 import SwiftUI
 
-let testArray: [String] = ["1", "2", "3", "Clear", "4", "5", "6", "-", "7", "8", "9", "+", "0", "="]
+let buttonsArray: [[String]] = [
+    ["7", "8", "9", "AC"],
+    ["4", "5", "6", "-"],
+    ["1", "2", "3", "+",],
+    ["0", "="]
+]
 var currentIndex = 0
-var rows: [GridItem] = [GridItem(.adaptive(minimum: 50))]
 
 struct ContentView: View {
+    
+    @EnvironmentObject var calculator: Calculator
+    
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 2.0) {
+            topLeftButton
+            Spacer()
+            calculationStack
+            buttons
+        }
+        .padding(10)
+        .background(Color.calculatorBackground)
+    }
+    
+    
+    
+    private var calculationStack: some View {
+        Group {
             HStack {
-                FlexButton("1"){}
-                FlexButton("2"){}
-                FlexButton("3"){}
-                FlexButton("Clear"){}
+                Spacer()
+                Text("\(calculator.calculations.last?.firstTime ?? "")")
+                Text("\(calculator.calculations.last?.operation ?? "")")
+                Text("\(calculator.calculations.last?.secondTime ?? "")")
             }
+            Divider()
             HStack {
-                FlexButton("4"){}
-                FlexButton("5"){}
-                FlexButton("6"){}
-                FlexButton("-"){}
+                Spacer()
+                Text("\(calculator.time)")
+                    .font(.system(size: 36))
+                    .multilineTextAlignment(.trailing)
             }
-            HStack {
-                FlexButton("7"){}
-                FlexButton("8"){}
-                FlexButton("9"){}
-                FlexButton("+"){}
+        }.foregroundColor(.white)
+    }
+    
+    private var buttons: some View {
+        ForEach(buttonsArray, id: \.self) { row in
+            HStack(spacing: 2.0) {
+                ForEach(row, id: \.self) { column in
+                    FlexButton(column) {
+                        calculator.checkInput(column)
+                    }
+                }
             }
-            HStack(alignment: .firstTextBaseline) {
-                FlexButton("0"){}
-                FlexButton("="){}
         }
     }
-}
+    
+    private var topLeftButton: some View {
+        HStack {
+            Button {
+                
+            } label: {
+                Label("List of previous calculations", systemImage: "list.bullet.rectangle.portrait.fill").labelStyle(.iconOnly)
+            }
+            .padding()
+            .font(.system(size: 24))
+            Spacer()
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(Calculator())
+//        ContentView()
+//            .previewDevice("iPod touch (7th generation)")
+//        ContentView()
+//            .previewDevice("iPhone 13 Pro Max")
     }
 }

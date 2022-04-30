@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Time_LogApp: App {
+    
+    @StateObject var calculator: Calculator = Calculator()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(calculator)
         }
     }
 }
