@@ -64,26 +64,105 @@ class Calculator: ObservableObject {
         return (hour, minute)
     }
     
-    func acToDel(){
+    func checkInput(_ input: String) -> Void {
+        
+        switch input {
+            
+        case "+", "-" :
+            if isFirstNumber {
+                firstNumber = arrayToInt(from: numbers)
+                firstTime = intToTime(firstNumber)
+                resetNumbers()
+                isFirstNumber = false
+            } else if isShowingResult {
+                firstNumber = result
+                firstTime = intToTime(firstNumber)
+                resetNumbers()
+                isShowingResult = false
+            } else {
+                secondNumber = arrayToInt(from: numbers)
+                resetNumbers()
+                calculate()
+                firstTime = intToTime(firstNumber)
+                time = "0:00"
+                isFirstNumber = false
+                isShowingResult = false
+            }
+            operation = input
+               
+        case "=":
+            if isFirstNumber{
+                return
+            } else if isShowingResult {
+                resetNumbers()
+                calculate()
+            } else {
+                secondNumber = arrayToInt(from: numbers)
+                resetNumbers()
+                calculate()
+            }
+            
+        case "AC":
+            resetTime()
+            
+        case "C":
+            if numbers.count != 0 {
+                numbers = []
+                renderNumbers()
+            }
+            if numbers.isEmpty {
+                cToAc()
+                renderNumbers()
+            }
+            
+        case "Del":
+            if isShowingResult {
+                return
+            }
+            if numbers.count != 0 {
+                numbers.removeLast()
+                renderNumbers()
+            }
+            if numbers.isEmpty {
+                cToAc()
+            }
+            
+        default:
+            acToC()
+            
+            if isFirstNumber {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                renderNumbers()
+            } else if isShowingResult {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                isFirstNumber = true
+                renderNumbers()
+            } else {
+                if numbers.count < 8 {
+                    numbers.append(input)
+                }
+                renderNumbers()
+            }
+            
+            isShowingResult = false
+        }
+    }
+    
+    func acToC(){
         let some = buttonsArray[0].firstIndex(of: "AC")
         if some != nil {
             buttonsArray[0][some!] = "C"
         }
     }
     
-    func delToAc() {
+    func cToAc() {
         let some = buttonsArray[0].firstIndex(of: "C")
         if some != nil {
             buttonsArray[0][some!] = "AC"
-        }
-    }
-    
-    func checkIfSingleDigit(_ minute: String) -> String {
-        if minute.count == 1 {
-            let doubleDigit = minute + "0"
-            return doubleDigit
-        } else {
-            return minute
         }
     }
     
@@ -99,124 +178,7 @@ class Calculator: ObservableObject {
     func resetNumbers() {
         time = "0:00"
         numbers = []
-    }
-    
-    
-    func checkInput(_ input: String) -> Void {
-        switch input {
-        case "+", "-" :
-            
-            print(isFirstNumber)
-            print(isShowingResult)
-            print("")
-            
-            operation = input
-            
-            if isFirstNumber {
-                firstNumber = arrayToInt(from: numbers)
-                resetNumbers()
-                isFirstNumber = false
-                firstTime = intToTime(firstNumber)
-            } else if isShowingResult {
-                firstNumber = result
-                firstTime = intToTime(firstNumber)
-                resetNumbers()
-                isShowingResult = false
-            } else {
-                secondNumber = arrayToInt(from: numbers)
-                resetNumbers()
-                calculate()
-                firstNumber = result
-                isShowingResult = true
-            }
-               
-        case "=":
-            print(isFirstNumber)
-            print(isShowingResult)
-            print("")
-            
-            if isFirstNumber{
-                return
-            } else if isShowingResult {
-                resetNumbers()
-                calculate()
-                firstNumber = result
-                isShowingResult = true
-            } else {
-                secondNumber = arrayToInt(from: numbers)
-                resetNumbers()
-                calculate()
-                firstNumber = result
-                isShowingResult = true
-            }
-            
-        case "AC":
-            print(isFirstNumber)
-            print(isShowingResult)
-            print("")
-            
-            resetTime()
-            print("C button pressed, status: \((numbers, firstNumber, secondNumber, operation))")
-        case "C":
-            
-            if numbers.count != 0 {
-                numbers = []
-                renderNumbers()
-            }
-            if numbers.isEmpty {
-                delToAc()
-                renderNumbers()
-            }
-            print("C button pressed, status: \((numbers, firstNumber, secondNumber, operation))")
-        case "Del":
-            if isShowingResult {
-                return
-            }
-            if numbers.count != 0 {
-                numbers.removeLast()
-                renderNumbers()
-            }
-            if numbers.isEmpty {
-                delToAc()
-            }
-        default:
-            print(isFirstNumber)
-            print(isShowingResult)
-            print("")
-            acToDel()
-            
-            isShowingResult = false
-            if isFirstNumber {
-                if numbers.count < 8 {
-                    numbers.append(input)
-                }
-                renderNumbers()
-            } else if isShowingResult {
-                if numbers.count < 8 {
-                    numbers.append(input)
-                }
-                renderNumbers()
-            } else {
-                if numbers.count < 8 {
-                    numbers.append(input)
-                }
-                renderNumbers()
-            }
-            
-            
-            
-            
-            
-//            if isFirstNumber {
-//                firstNumber = (0, 0)
-//                secondNumber = (0, 0)
-//            }
-//            if numbers.count < 8 {
-//                numbers.append(input)
-//            }
-//            renderNumbers()
-//            isShowingResult = false
-        }
+        cToAc()
     }
     
     func resetTime() {
@@ -227,7 +189,6 @@ class Calculator: ObservableObject {
         isShowingResult = false
         numbers = []
     }
-    
     
     func renderNumbers() {
         if numbers.count == 1 {
@@ -244,6 +205,7 @@ class Calculator: ObservableObject {
     }
     
     func calculate() -> Void {
+        
         if operation == "+" {
             let (firstHour, firstMinute) = firstNumber
             let (secondHour, secondMinute) = secondNumber
@@ -288,7 +250,7 @@ class Calculator: ObservableObject {
         } else {
             return
         }
+        firstNumber = result
+        isShowingResult = true
     }
-    
-    
 }

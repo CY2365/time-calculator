@@ -8,25 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		B34152FC281D84FB00502F06 /* PreviousCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34152FB281D84FB00502F06 /* PreviousCalculations.swift */; };
-		B34614FE2819528F005A1C9E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FD2819528F005A1C9E /* Extensions.swift */; };
+		B34614FE2819528F005A1C9E /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FD2819528F005A1C9E /* Color+Extensions.swift */; };
 		B34615002819722A005A1C9E /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FF2819722A005A1C9E /* Calculation.swift */; };
 		B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B419A28188478003FD8B5 /* FlexButton.swift */; };
 		B3968CA4281C0C0700419BEE /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3968CA3281C0C0700419BEE /* Calculator.swift */; };
 		B3AA919E28184781004F004C /* Time_LogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA919D28184781004F004C /* Time_LogApp.swift */; };
-		B3AA91A028184781004F004C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA919F28184781004F004C /* ContentView.swift */; };
+		B3AA91A028184781004F004C /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA919F28184781004F004C /* CalculatorView.swift */; };
 		B3AA91A228184785004F004C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3AA91A128184785004F004C /* Assets.xcassets */; };
 		B3AA91A528184785004F004C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3AA91A428184785004F004C /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B34152FB281D84FB00502F06 /* PreviousCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousCalculations.swift; sourceTree = "<group>"; };
-		B34614FD2819528F005A1C9E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B34614FD2819528F005A1C9E /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		B34614FF2819722A005A1C9E /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		B34B419A28188478003FD8B5 /* FlexButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexButton.swift; sourceTree = "<group>"; };
 		B3968CA3281C0C0700419BEE /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		B3AA3BEF282021F20083EE94 /* Time-Log-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Time-Log-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B3AA919A28184781004F004C /* Time Log.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Log.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3AA919D28184781004F004C /* Time_LogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_LogApp.swift; sourceTree = "<group>"; };
-		B3AA919F28184781004F004C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B3AA919F28184781004F004C /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		B3AA91A128184785004F004C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3AA91A428184785004F004C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,6 +43,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B36A538F2821242D000E0C20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B3AA919F28184781004F004C /* CalculatorView.swift */,
+				B34B419A28188478003FD8B5 /* FlexButton.swift */,
+				B34152FB281D84FB00502F06 /* PreviousCalculations.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B36A539028212531000E0C20 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				B34614FD2819528F005A1C9E /* Color+Extensions.swift */,
+			);
+			name = Extentions;
+			sourceTree = "<group>";
+		};
+		B36A5391282125B6000E0C20 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B34614FF2819722A005A1C9E /* Calculation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B36A539228212611000E0C20 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3968CA3281C0C0700419BEE /* Calculator.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B3AA919128184781004F004C = {
 			isa = PBXGroup;
 			children = (
@@ -62,14 +97,13 @@
 			isa = PBXGroup;
 			children = (
 				B3AA919D28184781004F004C /* Time_LogApp.swift */,
-				B3AA919F28184781004F004C /* ContentView.swift */,
-				B34B419A28188478003FD8B5 /* FlexButton.swift */,
-				B3968CA3281C0C0700419BEE /* Calculator.swift */,
-				B34614FD2819528F005A1C9E /* Extensions.swift */,
-				B34614FF2819722A005A1C9E /* Calculation.swift */,
+				B3AA3BEF282021F20083EE94 /* Time-Log-Info.plist */,
+				B36A538F2821242D000E0C20 /* Views */,
+				B36A5391282125B6000E0C20 /* Model */,
+				B36A539228212611000E0C20 /* ViewModel */,
+				B36A539028212531000E0C20 /* Extentions */,
 				B3AA91A128184785004F004C /* Assets.xcassets */,
 				B3AA91A328184785004F004C /* Preview Content */,
-				B34152FB281D84FB00502F06 /* PreviousCalculations.swift */,
 			);
 			path = "Time Log";
 			sourceTree = "<group>";
@@ -152,10 +186,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3AA91A028184781004F004C /* ContentView.swift in Sources */,
+				B3AA91A028184781004F004C /* CalculatorView.swift in Sources */,
 				B3AA919E28184781004F004C /* Time_LogApp.swift in Sources */,
 				B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */,
-				B34614FE2819528F005A1C9E /* Extensions.swift in Sources */,
+				B34614FE2819528F005A1C9E /* Color+Extensions.swift in Sources */,
 				B34615002819722A005A1C9E /* Calculation.swift in Sources */,
 				B34152FC281D84FB00502F06 /* PreviousCalculations.swift in Sources */,
 				B3968CA4281C0C0700419BEE /* Calculator.swift in Sources */,
@@ -287,21 +321,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Time Log/Preview Content\"";
-				DEVELOPMENT_TEAM = 89RTSPDR32;
+				DEVELOPMENT_TEAM = DMT6N6X4A4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Time-Log-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Calculate Time";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ckyz.Time-Log";
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.cenkyavuz.time-log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,21 +353,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Time Log/Preview Content\"";
-				DEVELOPMENT_TEAM = 89RTSPDR32;
+				DEVELOPMENT_TEAM = DMT6N6X4A4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Time-Log-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Calculate Time";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ckyz.Time-Log";
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.cenkyavuz.time-log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CalculatorView.swift
 //  Time Log
 //
 //  Created by Cenk Yavuz on 26/04/2022.
@@ -10,10 +10,11 @@ import SwiftUI
 
 var currentIndex = 0
 
-struct ContentView: View {
+struct CalculatorView: View {
     
     @EnvironmentObject var calculator: Calculator
     @State var showHistory = false
+    @State var statusBarHidden = false
     
     var body: some View {
         VStack(spacing: 2.0) {
@@ -24,6 +25,7 @@ struct ContentView: View {
         }
         .padding(10)
         .background(Color.calculatorBackground)
+        
     }
     
     
@@ -32,6 +34,7 @@ struct ContentView: View {
         VStack {
             HStack {
                 Spacer()
+                
                 if calculator.isFirstNumber {
                     Text("")
                 } else if !calculator.isFirstNumber && !calculator.isShowingResult {
@@ -92,7 +95,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(Calculator())
+        CalculatorView().environmentObject(Calculator())
 //        ContentView()
 //            .previewDevice("iPod touch (7th generation)")
 //        ContentView()

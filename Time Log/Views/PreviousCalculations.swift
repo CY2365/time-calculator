@@ -76,7 +76,7 @@ struct PreviousCalculations: View {
 }
 
 //struct PreviousCalculations_Previews: PreviewProvider {
-//    var content = ContentView()
+//    var content = CalculatorView()
 //    static var previews: some View {
 //        PreviousCalculations(showHistory: content.$showHistory)
 //    }

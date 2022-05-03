@@ -14,7 +14,7 @@ struct Time_LogApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalculatorView()
                 .environmentObject(calculator)
         }
     }
