@@ -25,7 +25,6 @@ struct CalculatorView: View {
         }
         .padding(10)
         .background(Color.calculatorBackground)
-        
     }
     
     
