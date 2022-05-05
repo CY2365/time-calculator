@@ -39,10 +39,12 @@ struct PreviousCalculations: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         if calculator.calculations.isEmpty {
-                            Text("No calculations yet.")
+                            Text("""
+                                 "Time waits for no one."
+                                 """)
                                 .padding()
                                 .foregroundColor(.white)
-                                .font(.largeTitle)
+                                .font(.title)
                                 .frame(maxWidth: .infinity, alignment: .center)
                         } else {
                             ForEach(calculator.calculations) { calculation in
@@ -66,18 +68,6 @@ struct PreviousCalculations: View {
                                             .font(.system(size: 16))
                                             .padding(.trailing, 3)
                                     }.buttonStyle(HightlightWhenPressed())
-
-//                                    Image(systemName: "doc.on.doc.fill")
-//                                        .font(.system(size: 16))
-//                                        .foregroundColor(.blue)
-//                                        .padding(.trailing, 3)
-////                                        .onTapGesture {
-////                                            if calculator.copyResultOnly {
-////                                                copy(calculation.result)
-////                                            } else {
-////                                                copy("\(calculation.firstTime + " " + calculation.operation + " " + calculation.secondTime + " = " + calculation.result)")
-////                                            }
-////                                        }
                                 }
                             }
                         }
