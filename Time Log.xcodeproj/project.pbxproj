@@ -11,6 +11,9 @@
 		B34614FE2819528F005A1C9E /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FD2819528F005A1C9E /* Color+Extensions.swift */; };
 		B34615002819722A005A1C9E /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34614FF2819722A005A1C9E /* Calculation.swift */; };
 		B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B419A28188478003FD8B5 /* FlexButton.swift */; };
+		B36439E92822C9F60090E7F5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36439E82822C9F60090E7F5 /* Settings.swift */; };
+		B36439EB28240B6E0090E7F5 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36439EA28240B6E0090E7F5 /* SettingRow.swift */; };
+		B36439ED282416030090E7F5 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36439EC282416030090E7F5 /* ButtonStyles.swift */; };
 		B3968CA4281C0C0700419BEE /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3968CA3281C0C0700419BEE /* Calculator.swift */; };
 		B3AA919E28184781004F004C /* Time_LogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA919D28184781004F004C /* Time_LogApp.swift */; };
 		B3AA91A028184781004F004C /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA919F28184781004F004C /* CalculatorView.swift */; };
@@ -23,6 +26,9 @@
 		B34614FD2819528F005A1C9E /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		B34614FF2819722A005A1C9E /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		B34B419A28188478003FD8B5 /* FlexButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexButton.swift; sourceTree = "<group>"; };
+		B36439E82822C9F60090E7F5 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B36439EA28240B6E0090E7F5 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
+		B36439EC282416030090E7F5 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		B3968CA3281C0C0700419BEE /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		B3AA3BEF282021F20083EE94 /* Time-Log-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Time-Log-Info.plist"; sourceTree = SOURCE_ROOT; };
 		B3AA919A28184781004F004C /* Time Log.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Log.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +55,9 @@
 				B3AA919F28184781004F004C /* CalculatorView.swift */,
 				B34B419A28188478003FD8B5 /* FlexButton.swift */,
 				B34152FB281D84FB00502F06 /* PreviousCalculations.swift */,
+				B36439EC282416030090E7F5 /* ButtonStyles.swift */,
+				B36439E82822C9F60090E7F5 /* Settings.swift */,
+				B36439EA28240B6E0090E7F5 /* SettingRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,11 +197,14 @@
 			files = (
 				B3AA91A028184781004F004C /* CalculatorView.swift in Sources */,
 				B3AA919E28184781004F004C /* Time_LogApp.swift in Sources */,
+				B36439ED282416030090E7F5 /* ButtonStyles.swift in Sources */,
+				B36439E92822C9F60090E7F5 /* Settings.swift in Sources */,
 				B34B419B28188478003FD8B5 /* FlexButton.swift in Sources */,
 				B34614FE2819528F005A1C9E /* Color+Extensions.swift in Sources */,
 				B34615002819722A005A1C9E /* Calculation.swift in Sources */,
 				B34152FC281D84FB00502F06 /* PreviousCalculations.swift in Sources */,
 				B3968CA4281C0C0700419BEE /* Calculator.swift in Sources */,
+				B36439EB28240B6E0090E7F5 /* SettingRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +343,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,7 +375,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

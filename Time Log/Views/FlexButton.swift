@@ -18,7 +18,6 @@ struct FlexButton: View {
     }
     
     var body: some View {
-        
             
         if text == "0" || text == "=" {
             Button(text, action: action)
@@ -39,16 +38,20 @@ struct SquareButton: ButtonStyle {
         var foreground: Color = ButtonLets.foreground
         
         var theButton: some View {
-            configuration.label
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .aspectRatio(1, contentMode: .fit)
-                .foregroundColor(foreground)
-                .background(configuration.isPressed ? ButtonLets.pressedColor : color)
-                .cornerRadius(ButtonLets.cornerRadius)
-                .font(ButtonLets.buttonFont)
-                .overlay(RoundedRectangle(cornerRadius: ButtonLets.cornerRadius)
-                .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
-                .shadow(radius: ButtonLets.shadowRadius)
+            ZStack{
+                configuration.isPressed ? ButtonLets.pressedColor : color
+                configuration.label
+                    
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .aspectRatio(1, contentMode: .fit)
+            .foregroundColor(foreground)
+            .cornerRadius(ButtonLets.cornerRadius)
+            .font(ButtonLets.buttonFont)
+            .overlay(RoundedRectangle(cornerRadius: ButtonLets.cornerRadius)
+            .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
+            .shadow(radius: ButtonLets.shadowRadius)
+            
         }
         
         switch text {
@@ -73,16 +76,18 @@ struct RectButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         var color: Color
         var theButton: some View {
-            configuration.label
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .aspectRatio(2, contentMode: .fit)
-                .foregroundColor(ButtonLets.foreground)
-                .background(configuration.isPressed ? ButtonLets.pressedColor : color)
-                .cornerRadius(ButtonLets.cornerRadius)
-                .font(ButtonLets.buttonFont)
-                .overlay(RoundedRectangle(cornerRadius:ButtonLets.cornerRadius)
-                .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
-                .shadow(radius: ButtonLets.shadowRadius)
+            ZStack {
+                configuration.isPressed ? ButtonLets.pressedColor : color
+                configuration.label
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .aspectRatio(2, contentMode: .fit)
+            .foregroundColor(ButtonLets.foreground)
+            .cornerRadius(ButtonLets.cornerRadius)
+            .font(ButtonLets.buttonFont)
+            .overlay(RoundedRectangle(cornerRadius:ButtonLets.cornerRadius)
+            .stroke(Color.black, lineWidth: ButtonLets.borderWidth))
+            .shadow(radius: ButtonLets.shadowRadius)
         }
         
         if text == "=" {

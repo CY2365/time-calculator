@@ -14,17 +14,19 @@ struct CalculatorView: View {
     
     @EnvironmentObject var calculator: Calculator
     @State var showHistory = false
-    @State var statusBarHidden = false
+    @State var showInfo = false
     
     var body: some View {
-        VStack(spacing: 2.0) {
-            topLeftButton
-            Spacer()
-            calculationStack
-            buttons
+        ZStack {
+            Color.calculatorBackground
+                .ignoresSafeArea()
+            VStack(spacing: 2.0) {
+                topLeftButton
+                Spacer()
+                calculationStack
+                buttons
+            }
         }
-        .padding(10)
-        .background(Color.calculatorBackground)
     }
     
     
@@ -38,18 +40,31 @@ struct CalculatorView: View {
                     Text("")
                 } else if !calculator.isFirstNumber && !calculator.isShowingResult {
                     Text("\(calculator.firstTime ?? "")")
+                        .transition(.asymmetric(insertion: .offset(x: 0, y: -15), removal: .identity))
                     Text("\(calculator.operation ?? "")")
+                        .transition(.asymmetric(insertion: .offset(x: 0, y: -15), removal: .identity))
                 } else if calculator.isShowingResult {
                     Text("\(calculator.calculations.last?.firstTime ?? "")")
+                        .transition(
+                            .asymmetric(insertion: .offset(x: 0, y: -15),
+                                        removal: .identity))
                     Text("\(calculator.calculations.last?.operation ?? "")")
+                        .transition(
+                            .asymmetric(insertion: .offset(x: 0, y: -15),
+                                        removal: .identity))
                     Text("\(calculator.calculations.last?.secondTime ?? "")")
+                        .transition(
+                            .asymmetric(insertion: .offset(x: 0, y: -15),
+                                        removal: .identity))
                 }
                 
             }
-            Divider().background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/)
+            Divider()
             HStack {
                 Spacer()
                 Text("\(calculator.time)")
+                    .animation(.none)
+                    .transition(.identity)
                     .font(.system(size: 36))
                     .multilineTextAlignment(.trailing)
                 Button {
@@ -60,7 +75,9 @@ struct CalculatorView: View {
                 .padding(.trailing, 10.0)
                 .foregroundColor(.blue)
             }
-        }.padding(.bottom).foregroundColor(.white)
+        }
+        .padding(.bottom)
+        .foregroundColor(.white)
     }
     
     private var buttons: some View {
@@ -88,6 +105,17 @@ struct CalculatorView: View {
                 PreviousCalculations(showHistory: $showHistory)
             }
             Spacer()
+            Button {
+                self.showInfo.toggle()
+            } label: {
+                Image(systemName: "gearshape.fill")
+            }
+            .padding()
+            .font(.system(size: 24))
+            .sheet(isPresented: $showInfo) {
+                Settings($showInfo)
+            }
+
         }
     }
 }

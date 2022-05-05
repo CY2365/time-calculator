@@ -19,6 +19,7 @@ class Calculator: ObservableObject {
         ["0", "="]
     ]
     
+    var copyResultOnly = true
     var firstNumber: (Int, Int) = (0, 0)
     var secondNumber: (Int, Int) = (0, 0)
     var result: (Int, Int) = (0, 0)
@@ -69,41 +70,49 @@ class Calculator: ObservableObject {
         switch input {
             
         case "+", "-" :
-            if isFirstNumber {
-                firstNumber = arrayToInt(from: numbers)
-                firstTime = intToTime(firstNumber)
-                resetNumbers()
-                isFirstNumber = false
-            } else if isShowingResult {
-                firstNumber = result
-                firstTime = intToTime(firstNumber)
-                resetNumbers()
-                isShowingResult = false
-            } else {
-                secondNumber = arrayToInt(from: numbers)
-                resetNumbers()
-                calculate()
-                firstTime = intToTime(firstNumber)
-                time = "0:00"
-                isFirstNumber = false
-                isShowingResult = false
-            }
-            operation = input
+            
+                if isFirstNumber {
+                    firstNumber = arrayToInt(from: numbers)
+                    firstTime = intToTime(firstNumber)
+                    resetNumbers()
+                    isFirstNumber = false
+                } else if isShowingResult {
+                    firstNumber = result
+                    firstTime = intToTime(firstNumber)
+                    resetNumbers()
+                    isShowingResult = false
+                } else {
+                    secondNumber = arrayToInt(from: numbers)
+                    resetNumbers()
+                    calculate()
+                    firstTime = intToTime(firstNumber)
+                    time = "0:00"
+                    isFirstNumber = false
+                    isShowingResult = false
+                }
+                operation = input
+            
+            
                
         case "=":
-            if isFirstNumber{
-                return
-            } else if isShowingResult {
-                resetNumbers()
-                calculate()
-            } else {
-                secondNumber = arrayToInt(from: numbers)
-                resetNumbers()
-                calculate()
-            }
+            
+                if isFirstNumber{
+                    return
+                } else if isShowingResult {
+                    resetNumbers()
+                    calculate()
+                } else {
+                    secondNumber = arrayToInt(from: numbers)
+                    resetNumbers()
+                    calculate()
+                }
+            
+            
             
         case "AC":
+            
             resetTime()
+            
             
         case "C":
             if numbers.count != 0 {
@@ -176,9 +185,12 @@ class Calculator: ObservableObject {
     }
     
     func resetNumbers() {
-        time = "0:00"
-        numbers = []
-        cToAc()
+        withAnimation {
+            time = "0:00"
+            numbers = []
+            cToAc()
+        }
+        
     }
     
     func resetTime() {
@@ -205,52 +217,56 @@ class Calculator: ObservableObject {
     }
     
     func calculate() -> Void {
-        
-        if operation == "+" {
-            let (firstHour, firstMinute) = firstNumber
-            let (secondHour, secondMinute) = secondNumber
-            let totals = firstMinute + secondMinute
-            if totals >= 60{
-                result = ((firstHour + secondHour + 1), ((firstMinute + secondMinute) % 60))
+        withAnimation {
+            if operation == "+" {
+                let (firstHour, firstMinute) = firstNumber
+                let (secondHour, secondMinute) = secondNumber
+                let totals = firstMinute + secondMinute
+                if totals >= 60{
+                    result = ((firstHour + secondHour + 1), ((firstMinute + secondMinute) % 60))
+                } else {
+                    result = ((firstHour + secondHour), (firstMinute + secondMinute))
+                }
+                let timeOne = intToTime(firstNumber)
+                let timeTwo = intToTime(secondNumber)
+                let resultTime = intToTime(result)
+                if timeOne != nil && timeTwo != nil && resultTime != nil {
+                    let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "+", result: resultTime!)
+                    calculations.append(calc)
+                    time = calc.result
+                }
+                
+            } else if operation == "-" {
+                let (firstHour, firstMinute) = firstNumber
+                let (secondHour, secondMinute) = secondNumber
+                let totalMinutes = firstMinute - secondMinute
+                let totalHours = firstHour - secondHour
+                print(totalHours)
+                print(totalMinutes)
+                if (totalMinutes < 0 && totalHours < 1) || totalHours < 0 {
+                    time = "Error"
+                    return
+                } else if totalMinutes < 0 && totalHours >= 1 {
+                    result = ((firstHour - secondHour - 1), (60 + (firstMinute - secondMinute)))
+                } else {
+                    result = ((firstHour - secondHour), (firstMinute - secondMinute))
+                }
+                let timeOne = intToTime(firstNumber)
+                let timeTwo = intToTime(secondNumber)
+                let resultTime = intToTime(result)
+                if timeOne != nil && timeTwo != nil && resultTime != nil {
+                    let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "-", result: resultTime!)
+                    calculations.append(calc)
+                    time = calc.result
+                }
             } else {
-                result = ((firstHour + secondHour), (firstMinute + secondMinute))
-            }
-            let timeOne = intToTime(firstNumber)
-            let timeTwo = intToTime(secondNumber)
-            let resultTime = intToTime(result)
-            if timeOne != nil && timeTwo != nil && resultTime != nil {
-                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "+", result: resultTime!)
-                calculations.append(calc)
-                time = calc.result
-            }
-            
-        } else if operation == "-" {
-            let (firstHour, firstMinute) = firstNumber
-            let (secondHour, secondMinute) = secondNumber
-            let totalMinutes = firstMinute - secondMinute
-            let totalHours = firstHour - secondHour
-            print(totalHours)
-            print(totalMinutes)
-            if (totalMinutes < 0 && totalHours < 1) || totalHours < 0 {
-                time = "Error"
                 return
-            } else if totalMinutes < 0 && totalHours >= 1 {
-                result = ((firstHour - secondHour - 1), (60 + (firstMinute - secondMinute)))
-            } else {
-                result = ((firstHour - secondHour), (firstMinute - secondMinute))
             }
-            let timeOne = intToTime(firstNumber)
-            let timeTwo = intToTime(secondNumber)
-            let resultTime = intToTime(result)
-            if timeOne != nil && timeTwo != nil && resultTime != nil {
-                let calc = Calculation(firstTime: timeOne!, secondTime: timeTwo!, operation: "-", result: resultTime!)
-                calculations.append(calc)
-                time = calc.result
-            }
-        } else {
-            return
+            firstNumber = result
+            isShowingResult = true
         }
-        firstNumber = result
-        isShowingResult = true
+            
+        
+        
     }
 }
